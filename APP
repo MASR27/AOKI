@@ -1,0 +1,560 @@
+!python -m venv site
+
+!pip install mkdocs
+!pip install 'jinja2==2.11.3'
+!pip install 'markupsafe==1.1.1'
+!mkdocs new my_mkdocs_project1
+
+import os
+os.chdir('my_mkdocs_project1')
+
+!pip install pyyaml
+!pip install mkdocs-material
+
+import yaml
+
+# Define MkDocs configuration
+config = {
+    'site_name': 'Sistema de Gestión de Medición para Estaciones de Servicio',
+    'nav': [
+        {'Inicio': 'index.md'},
+        {'Términos y Definiciones': 'about.md'},
+        {'Objetivos del Sistema de Gestión de Medición': 'objetives.md'},
+        {'Procesos de Calibración': 'calibration.md'},
+        {'Referencias Normativas': 'normative.md'},
+        {'Requisitos Generales': 'requeriments.md'},
+        {'Responsabilidad de la Dirección': 'direction.md'},
+        {'Gestión de los Recursos': 'submit_equipment_content.md'},
+        {'Confirmación Metrológica': 'confirmation.md'},
+        {'Analisis y Mejora': 'improve.md'}
+    ],
+    'theme': {
+        'name': 'material',
+        'palette': {
+            'scheme': 'slate',
+            'primary': 'teal',
+            'accent': 'deep orange',
+        },
+        'extra_javascript': 'js/form.js'
+    },
+    'plugins': [
+        'search',
+        {'mkdocs-jupyter': {
+            'include_nav': 'true',  # Changed 'true' to True
+            'ignore_prefix': '_'
+        }}
+    ]
+}
+
+# Write configuration to mkdocs.yml
+with open('mkdocs.yml', 'w') as config_file:
+    yaml.dump(config, config_file, default_flow_style=False)
+
+# Define the improved index_content
+index_content = """
+
+
+# Sistema de Gestión de Mediciones para Estaciones de Servicio (ISO 10012:2003)
+
+
+<p style='text-align: justify;'>
+
+Bienvenido a la documentación de nuestro Sistema de Gestión de Mediciones para Estaciones de Servicio, diseñado para cumplir con las normas ISO 10012:2003 y NMX 10012:2004. Este sistema garantiza que todas las mediciones relacionadas con el suministro de combustible son supervisadas, asegurandose de ser precisas, confiables y consistentes, brindando el más alto nivel de servicio a nuestros clientes.
+
+...
+
+Nuestro compromiso de cumplir con las normas es inquebrantable. Nos esforzamos continuamente por mejorar nuestro sistema de gestión de mediciones para garantizar los más altos niveles de precisión y satisfacción del cliente.
+
+</p> 
+
+## Introducción a la norma ISO 10012:2003
+
+ISO 10012:2003 especifica requisitos generales para la competencia de los productores de materiales de referencia. En el contexto de una gasolinera, esto significa garantizar que todos nuestros equipos y procesos de medición cumplan con estos estrictos estándares de precisión y coherencia.
+
+## Calibración de instrumentos de medición
+
+### Calibración periódica
+- **Frecuencia de calibración**: Detalles sobre la frecuencia con la que se realizan las comprobaciones de calibración en nuestros surtidores de combustible.
+- **Procedimientos de calibración**: Guía paso a paso sobre cómo calibramos nuestras bombas y otros instrumentos de medición.
+
+### Mantenimiento de registros
+- **Documentación**: Cómo se mantienen y archivan los registros de calibración.
+- **Trazabilidad**: Garantizar que todas las mediciones puedan rastrearse hasta estándares nacionales o internacionales.
+
+## Trazabilidad de las mediciones
+
+- **Estándares de Referencia**: Información sobre los estándares que utilizamos como referencia para la calibración.
+- **Servicios de calibración externos**: Cuándo y cómo utilizamos servicios externos para calibración y verificación.
+
+## Control de Condiciones Ambientales
+
+- **Compensación de temperatura**: nuestro enfoque para gestionar los efectos de la temperatura en las mediciones del volumen de combustible.
+- **Monitoreo ambiental**: Cómo monitoreamos y controlamos otros factores ambientales que podrían afectar la precisión de las mediciones.
+
+## Formación y competencia del personal
+
+- **Programas de Capacitación**: Resumen de nuestros programas de capacitación para el personal que maneja equipos de medición.
+- **Evaluación de Competencias**: Procesos para evaluar y asegurar la competencia del personal involucrado en las actividades de medición.
+
+## Mejora continua
+
+- **Quejas y sugerencias**: Mecanismos de recepción de feedback de los clientes y revisión periódica de nuestro sistema de medición.
+- **Actualizaciones e innovaciones**: cómo planeamos incorporar nuevas tecnologías y métodos para mejorar la precisión y eficiencia de las mediciones.
+
+## Conclusión
+
+Nuestro compromiso de cumplir con las normas ISO 10012:2003 es inquebrantable. Nos esforzamos continuamente por mejorar nuestro sistema de gestión de mediciones para garantizar los más altos niveles de precisión y satisfacción del cliente.
+
+
+"""
+
+
+# Create a dictionary with content for other .md pages
+page_contents = {
+    'about.md': """
+# Acerca de los Términos y Definiciones del Sistema de Gestión de Medición
+
+<p style='text-align: justify;'>
+
+Utiliza una serie de definiciones ligadas a la gestión de la seguridad industrial, calidad,  seguridad operativa, administración y elementos ambientales las cuales deben ser comprendidas por la organización que se dispone a implantar el Sistema.
+</p> 
+
+1. Sistema de gestión de las mediciones: Conjunto de elementos interrelacionados o que interactuan para lograr la confirmación metrológica y el control continuo de los procesos de medición.
+2. Proceso de medición: Conjunto de operaciones para determinar el valor de una magnitud.
+3. Equipo de medición: Instrumento de medicion, software, patrón de medida, material de referencia o aparato auxiliar, o una combinación de estos, necesario para llevar a cabo un proceso de medición.
+-  Característica metrológica: Característica identificable que puede influir en los resultados de la medición.
+    * NOTA 1: Los equipos de medición tienen varias características meteorológicas.
+    * NOTA 2: Las características metrológicas pueden ser el objeto de la calibración.
+-  Confirmación metrológica: Conjunto de operaciones requeridas para asegurarse de que el equipo de medición es conforme a ls requisitos correspondientes a su uso previsto.
+    * NOTA 1: La confirmación metrológica generalmente incluye calibración y verificación, cualquier ajuste o reparación necesario y la subsiguiente recalibración con los requisitos metrológicos del uso previsto del equipo, así como cualquier sellado y etiquetado requerido.
+    * NOTA 2: La confirmación metrológica no se logra hasta que se haya demostrado y documentado la adecuación del equipo de medición para el uso previsto.
+    * NOTA 3: Los requisitos para el uso previsto incluyen consideraciones tales como alcance, resolución y error máximo permitido.
+    * NOTA 4: Los requisitos metrológicos normalmente difieren de los requisitos para el producto y no están especificados en estos.
+    * NOTA 5: Se proporciona un diagráma del modelo de confirmación metrológica
+6. Función metrológica Función con responsabilidades administrativas y técnicas para definir e implementar el sistema de gestión de las mediciones.
+7. Organización: Persona o grupo de personas que tienen sus propias funciones y responsabilidades, autoridades y relaciones para el cumplimiento de sus objetivos.
+8. Parte interesada: Persona u organización que puede afectar o verse afectada por una decisión o una actividad (por ejemplo, clientes, propietarios, personal de la organización, proveedores y competidores, etc.)
+9. Requisito: Necesidad o expectativa que está establecida, generalmente implícita o explícita.
+10. Sistema: Conjunto de elementos interrelacionados que interactúan dentro de la organización, estableciendo diálogos y procesos o mecanismos para la obtención de los resultados u objetivos.
+11. Alta dirección:} Persona o grupo de personas que dirigen y controlan la organización al más alto nivel.
+12. Eficacia:} Grado en el que las actividades planificadas se desarrollan y se alcanzan los resultados estimados
+13. Eficiencia:  La capacidad que la organización posee para emplear sus recursos optimamente en el cumplimiento  de sus objetivos.
+14. Política:  Intención y dirección de la organización expresada formalmente por la alta dirección.
+15. Objetivo:  Resultado que debe conseguirse. Los objetivos pueden ser estratégicos, tácticos, u operativos.
+-  Riesgo:  Efecto de la incertidumbre
+    * Un efecto es una desviación de lo esperado  positivo o negativo.
+    * La incertidumbre es el Estado, aunque sea parcial, de la eficiencia de la información relacionada con, la comprensión o conocimiento, un evento, su consecuencia, o probabilidad
+    * El riesgo se caracteriza a menudo por referencia a los eventos potenciales (Guía ISO 73, 3.5.1.3) y las consecuencias (ISO Guía 73, 3.6.1.3), o una combinación de éstos.
+    * El riesgo se expresa a menudo en términos de una combinación de las consecuencias de un evento (incluyendo los cambios) y la probabilidad asociada (Guía ISO 73, 3.6.1.1) de ocurrencia. 
+17. Competencias:  La capacidad de aplicar los conocimientos y habilidades para lograr los resultados deseados.
+-  Información documentada:       Información requerida a ser controlada y mantenida por una organización (3.01) y el medio en el que es contenida.
+    * Información documentada puede estar en cualquier formato y en      cualquier medio de comunicación y de cualquier fuente.
+    * Información documentada puede referirse a:
+        ** Sistema de gestión de medición, incluyendo los procesos relacionados (calibraciones) {\bf ISO:10012:2003  {\bf NOM-005-SCFI-2017 .
+        ** Información creada para que la organización para operar (documentación, actas de inspección),  {\bf ISO 14001:2015 {\bf NOM-016-CRE-2016 .
+        ** La evidencia de los resultados obtenidos (registros, bitácoras de mantenimiento) {\bf ISO 31000:2018   {\bf NOM-005-ASEA-2016 , {\bf NOM-008-ASEA-2019 . 
+19. Proceso o procedimiento:  Conjunto de actividades mutuamente relacionadas o que interactúan, las cuales transforman elementos de entrada en resultados. 
+- Rendimiento:  Resultado medible 
+    * El rendimiento se puede corresponder a lo cuantitativo o resultados cualitativos. 
+    * El rendimiento puede relacionarse con la gestión de las actividades, procesos, productos, sistemas u organizaciones. 
+- Contratar externamente:  Crear un arreglo donde una organización externa realiza parte de la función o determinado proceso de una organización.
+    * Una organización externa está fuera del alcance del sistema de gestión, aunque la función o proceso subcontratado está dentro del alcance.
+- Seguimiento:  Determinar el estado de un sistema, un proceso, o una actividad.
+    * Para determinar el estado puede haber una necesidad de revisar, supervisar u observar. 16. Medición: proceso para determinar un valor. 
+23. Medición:  Proceso para determinar un valor.
+- Auditoría:  Proceso sistemático, independiente y documentado para obtener evidencia de auditoría y evaluarlas de manera objetiva para determinar el grado en que se cumplen los criterios.
+    * Una auditoría puede ser una auditoría interna (primera parte) o una auditoría externa (segunda parte o tercero), y se puede realizar una auditoría combinada (la combinación de dos o más disciplinas).
+    * Evidencias y criterios de la auditoría se definen en la norma ISO 19011.
+24. Conformidad:  Cumplimiento de un requisito
+25. Inconformidad:  No cumplimiento de un requisito.
+26. Acción correctivas:  Acciones para eliminar una no conformidad. 
+27. Mejora continua:  Actividad recurrente para mejorar el rendimiento. 
+28. Participación activa:  Involucrarse en los objetivos compartidos y contribuir a ellos.
+- Contexto de la organización:  Entorno empresarial, combinación de factores internos y externos y de condiciones que pueden afectar al enfoque de una organización, a sus productos, servicios e inversiones y partes interesadas. 
+    * El concepto de contexto de la organización se aplica por igual tanto a organizaciones sin ánimo de lucro o de servicio público, como a aquellas que buscan beneficios.
+30. Función:  Papel a desempeñar por una unidad designada por la organización.
+31. Cliente:  Persona u organización que podría o no recibir un producto o un servicio destinado a esta persona u organización, o requerido por ella. 
+32. Proveedor/prestador:  Persona u organización, o persona que proporciona un producto o servicio.
+33. Mejora:  Actividad para aumentar el desempeño. 
+34. Gestión:  Actividades coordinadas para dirigir y controlar una organización.
+35. Gestión de la calidad:  Gestión con respecto a la calidad. Incluye el establecimiento de una política de calidad y unos objetivos de calidad.
+36. Infraestructura:  Sistema de instalaciones, equipos y servicios necesarios para el funcionamiento de una organización.
+37. Política de la calidad:  Política con respecto de la calidad, que generalmente es coherente con la política global de la organización, alineándose con ell
+38. Estrategia:  Actividades planificadas para lograr un objetivo
+39. Objeto:  Entidad o cualquier cosa que puede percibirse o imaginarse (producto, servicio, proceso, persona, organización, sistema, recurso...), tanto materiales como imaginarios. 
+40. Calidad:  Grado en el que un conjunto de características, inherentes de un objeto, cumple con los requisitos
+41. Requisito legal:  Requisito obligatorio especificado por un organismo legislativo. 
+42. Requisito reglamentario:  Requisito obligatorio especificado por una autoridad que recibe el mandato de un organismo legislativo.
+- Defecto:  No conformidad relativa a un uso previsto o especificado. 
+    * Difiere de la no conformidad en las connotaciones legales, particularmente aquellas asociadas a la responsabilidad legal de los productos.
+- Trazabilidad:  Capacidad para seguir el histórico, la aplicación o la localización de un objeto.
+    * Puede estar relacionada con el origen de los materiales, el histórico del proceso y la distribución y localización del producto o servicio después de su entrega.
+45. Innovación:  Proceso resultante de un objeto nuevo o sustancialmente cambiado (puede ser el sistema de gestión, un proceso, un producto...). 
+46. Contrato:   Acuerdo vinculante.
+47. Diseño y desarrollo:   Conjunto de procesos que transforma los requisitos para un objeto en requisitos más detallados.
+48. Objetivo de la calidad:  Objetivo relativo a la calidad (generalmente basado en la política de calidad de la organización).
+- Elemento de salida:  Resultado de un proceso.
+    * Hay cuatro categorías: Servicios, software, hardware y materiales procesados. 
+49. Producto:  Elemento de salida, que es un resultado de actividades donde ninguna de ellas se lleva a cabo necesariamente en la interfaz entre el proveedor y el cliente.
+50. Servicio:   Elemento de salida intangible que es el resultado de llevar a cabo necesariamente al menos una actividad en la interfaz entre el proveedor y el cliente. Un servicio, generalmente, lo experimenta el cliente. 
+51. Datos:   Hechos carca de un objeto. 
+52. Información:   Datos que poseen significado.
+53. Evidencia objetiva:  Datos que respaldan la existencia o veracidad de algo (a través de observación, medición, ensayo u otros medios. En el ámbito de la auditoría se compone de registros, declaraciones de hechos y otra información, que son pertinentes para los criterios de auditoría y que son verificables).
+54. Sistema de información:  Red de canales de comunicación utilizados dentro de una organización.
+55. Conocimientos:  Recopilación de información disponible que es una creencia justificada y que tiene grado elevado de certeza de ser verdadera.
+56. Verificación:  Confirmación, mediante la aportación de evidencia objetiva, de que se han cumplido los requisitos especificados.
+57. Validación:  Confirmación, mediante la aportación de evidencia objetiva de que se han cumplido los requisitos para una utilización o aplicación prevista
+58. Retroalimentación:  Opiniones, comentarios y expresiones de interés por un producto, un servicio o un proceso de tratamiento de quejas.
+59. Satisfacción del cliente:  Percepción del cliente sobre el grado en que se han cumplido sus expectativas.
+60. Queja:  Expresión de insatisfacción hecha a una organización, relativa a su producto o servicio, o al propio proceso de tratamiento de quejas, donde explícita o implícitamente se espera una respuesta o resolución.
+61. Programa de auditoría:  Conjunto de una o más auditorías planificadas para un periodo de tiempo determinado y dirigidas hacia un propósito específico. 
+62. Criterios de auditoría:  Conjunto de políticas, información documentada, o requisitos utilizados como referencia frente a la que se compara la evidencia de la auditoría. 
+63. Evidencia objetiva de la auditoría:  Registros, declaraciones de hecho o cualquier otra información que son pertinentes para los criterios de auditoría y que son verificables.
+64. Hallazgos de la auditoría:  Resultados de la evaluación de la evidencia de auditoría recopilada frente a los criterios de auditoría. Los hallazgos indican la conformidad o no conformidad, así como las oportunidades de mejora o registrar buenas prácticas.
+65. Conseción:   Autorización para utilizar o liberar un producto o servicio que no es conforme con los requisitos especificados.
+66. Liberación:  Autorización para proseguir con la siguiente etapa de un proceso.
+67. Característica:   Rasgo diferenciador. Puede ser inherente o asignada, cualitativa o cuantitativa, física, sensorial, de comportamiento, de tiempo, ergonómica, funcional.
+68. Indicador del desempeño:  Métrica del desempeño. Característica que tiene un impacto significativo en la realización del elemento de salida y la satisfacción del cliente.
+69. Determinación:  Actividad para descubrir una o más características y sus valores característicos.
+70. Revisión:   Determinación de la conveniencia, adecuación y eficacia de un objeto para alcanzar unos objetivos establecido.
+71. Equipo de medición:  Instrumento de medición, software, patrón de medición, material de referencia, o equipos auxiliares o combinación de ellos, necesarios para llevar a cabo un proceso de medición.
+72. Medio Ambiente:  Medio ambiente es un sistema formado por elementos naturales y artificiales que están interrelacionados y que son modificados por la acción humana. Se trata del entorno que condiciona la forma de vida de la sociedad y que incluye valores naturales, sociales y culturales que existen en un lugar y momento determinado.
+73. Sistema de gestión de mediciones: Un conjunto de elementos interrelacionados o que interactúan necesarios para lograr la confirmación metrológica y el control continuo de los procesos de medición.
+74. Confirmación metrológica:  El conjunto de operaciones requeridas para asegurar que el equipo de medición cumple con los requisitos para su uso previsto.
+75. Equipo de medición:  Los instrumentos de medición, software, estándares de medición, materiales de referencia, aparatos auxiliares e instrucciones que son necesarios para producir resultados de medición.
+76. Calibración:  Un conjunto de operaciones que establecen, bajo condiciones específicas, la relación entre valores de cantidades indicadas por un instrumento de medición o sistema de medición, o valores representados por una medida material o un material de referencia, y los valores correspondientes realizados por estándares
+77. Trazabilidad:  La propiedad de un resultado de medición mediante la cual el resultado se puede relacionar con una referencia a través de una cadena ininterrumpida documentada de calibraciones, cada una de las cuales contribuye a la incertidumbre de la medición.
+78. Incertidumbre de medición:  Un parámetro no negativo que caracteriza la dispersión de los valores de cantidad que se atribuyen a un mensurando, según la información utilizada.
+79. Unidad:  Una cantidad particular sujeta a medición.
+80. Proceso de medición:  Un conjunto de operaciones, incluido el muestreo, la medición y el procesamiento de datos, para determinar el valor de un mensurando.
+81. Verificación:  Confirmación, mediante el suministro de pruebas objetivas, de que se han cumplido los requisitos especificados.
+82. Dispensador de gasolina:  Un dispositivo que dispensa y mide el volumen de gasolina u otro combustible que se entrega a un vehículo.
+83. Tanque de almacenamiento de gasolina:  Un contenedor para el almacenamiento a granel de gasolina u otro combustible en una gasolinera.
+84. Medidor de tanque:  Un dispositivo usado para medir el nivel de combustible en un tanque de almacenamiento.
+85. Pipa de reparto de gasolina:  Un vehículo utilizado para transportar y entregar gasolina u otro combustible a una gasolinera. 
+""",
+    'objetives.md': """
+    
+# Objetivos del Sistema de Gestión de Medición
+
+Este sistema de gestión articula los requisitos institucionales para todas las operaciones en el centro de trabajo, y en cualquier otro sitio donde trabaje el personal, afiliados y subcontratistas. El plan aborda el conjunto de estándares propuestos por estos lineamientos y su incorporación a las operaciones del trabajo en la estación. El plan está destinado a ser utilizado por la fuerza de trabajo y está disponible para quienes revisan las operaciones, verifican el cumplimiento y aprueban las modificaciones de este.
+
+Este plan establece la estrategia a largo plazo para la recepción, almacenamiento y entrega de los servicios de distribución de gasolina en términos de gestión de las mediciones. Describe, nuestras políticas y procesos de gestión de activos, el rendimiento que esperamos y recibimos de nuestros activos de red. Explica cómo nos esforzamos por utilizar de manera eficiente los recursos necesarios para equilibrar el precio y las compensaciones de calidad del servicio que nuestros clientes necesitan.
+   
+## Objetivo de la Gestón de Mediciones en la Estación de Servicio
+
+Nuestro objetivo es posicionar a la estación de servicio para que logre una práctica líder en la industria, equilibrando costos, riesgos, oportunidades y beneficios del rendimiento para la obtención de valor sostenible a lo largo del tiempo.
+
+A través del control de los procesos de medición asignados y de la confirmación metrológica de los equipos de medición (Véase {\bf CONCENTRADO - IXT03}) y sus soportes necesarios (Véase {\bf ISO-10012:2023-FORM1, ISO - 10012:20023 - FORM3, LDE - ISO - 10012:2003 - FORM4, LCC-ISO-10012:2003 - FORM5.} y la lista maestra LM-ISO-FORM 6 de procesos ubicada en IXT03) todos estos procesos y los cambios al sistema de gestión de las mediciones  deben hacerse de acuerdo con los procedimientos de la organización.
+
+### Alcance de la propuesta
+
+El alcance de esta propuesta es garantizar que la estación de servicio se enfoque continuamente en brindar un servicio excepcional a nuestros clientes de una manera que equilibre el riesgo y los costos a largo plazo. Establece los principios básicos de gestión de activos que impulsan nuestro marco de planificación y los acuerdos institucionales. Contiene nuestro objetivo para la gestión de activos que se puede resumir como sigue:
+
+- Asegurar una administración óptima de los activos (es decir, mantenimiento y operación, renovación, desarrollo y eliminación) a fin de entregar resultados óptimos para todas las partes interesadas, de acuerdo con sus necesidades y requisitos estipulados por la {\bf ISO 10012:2003}.
+
+Este plan de gestión presenta los requisitos institucionales y los principales métodos para la implementación en todas las operaciones y actividades. Se basa en las disposiciones de {\bf ISO 10012:2003}. {\bf Todas las instalaciones y actividades en la estación de servicio que no operan específicamente bajo un acuerdo de autorización, o un Plan de Gestión del Sistema de Gestión aprobado por separado, están autorizadas para seguir este Plan.}
+
+
+### Administración de equipos de medición
+
+- Identificar y mantener todo el equipo de medición utilizado para la operación de la gasolinera, incluido el equipo utilizado para el sistema Gilbarco, los tres tanques y el sistema Vedee Root.
+- Para garantizar que el equipo de medición esté calibrado y mantenido de acuerdo con los estándares aplicables y las especificaciones del fabricante.
+- Para garantizar que el equipo de medición sea operado por personal capacitado que comprenda los principios de medición, calibración y mantenimiento.
+
+
+### Trazabilidad de la medición
+
+- Establecer y mantener un sistema para asegurar que todas las mediciones realizadas en la gasolinera sean trazables a estándares de medición nacionales o internacionales.
+- Para garantizar que los resultados de las mediciones se registren y mantengan de una manera que permita la trazabilidad del equipo, los métodos y el personal específicos utilizados para realizar la medición.
+- Para garantizar que todos los registros de medición se almacenen en un lugar seguro y sean de fácil acceso para fines de auditoría.
+
+
+### Control del proceso de medición
+- Establecer y mantener un sistema para controlar el proceso de medición, incluidos los procedimientos para la validación y verificación de los métodos y equipos de medición.
+- Asegurar que todos los procedimientos de medición estén documentados y sean seguidos por el personal involucrado en el proceso de medición.
+- Para garantizar que cualquier cambio en los procedimientos o equipos de medición se documente y valide antes de la implementación.
+
+
+### Análisis de datos de medición
+- Establecer y mantener un sistema para analizar datos de medición, incluidos procedimientos para identificar tendencias, fuentes de variabilidad y oportunidades de mejora.
+- Para garantizar que el análisis de los datos de medición sea realizado por personal capacitado que comprenda los principios del análisis estadístico y el control de procesos.
+- Para garantizar que los resultados del análisis de datos de medición se utilicen para mejorar el proceso de medición e identificar oportunidades de ahorro de costos y optimización de procesos.
+
+
+### Mejora continua
+- Establecer y mantener un sistema para la mejora continua del sistema de gestión de mediciones, incluidos los procedimientos para monitorear y medir la efectividad del sistema.
+- Asegurar que cualquier no conformidad identificada durante el proceso de monitoreo y medición sea documentada, analizada y corregida de manera oportuna.
+- Asegurar que el sistema de gestión de la medición se revise periódicamente para verificar su idoneidad, adecuación y eficacia continuas.
+
+
+# Responsabilidad de la dirección
+
+## Función metrológica (designación del responsable del SGM)
+
+La función metrológica debe ser definida por la organización. La alta dirección de la organización debe asegurarse de que se dispone de los recursos necesarios para establecer y mantener la función metrológica, para garantizarlo se ha procedido a asignar un responsable del SGM a través de la forma {\bf Designación de Personal y Firmas Autorizadas para Preparar, Revisar y Aprobar Documentos - DPFAPRAD
+- ISO - 10012:2003 - FORM14}
+
+Este responsable del cumplimiento de la función metrológica y de asegurarse de que:
+
+- Los requisitos de medición del cliente se determinan y se convierten en requisitos metrológicos.
+- El sistema de gestión de las mediciones (SGM) cumple con los requisitos metrológicos del cliente.
+- Puede demostrarse el cumplimiento de los requisitos especificados por el cliente.
+
+Así como tambien del cumplimiento de los objetivos propuestos por la dirección y al plan de ejecución definido en
+{\bf Registro de Revisiones del Sistema de Gestión de Medición - ISO-10012:2023-FORM1} y {\bf Plan de Revisión - PRSGM - ISO - 10012:2003 - FORM2} 
+
+## Modelo de seguimiento
+
+\includegraphics[width=\textwidth]{qws.png}
+
+# Registros
+
+- Procesos de Medición - PM - ISO - 10012:2003 - FORM0
+- Registro de Revisiones del Sistema de Gestión de Medición - ISO-10012:2023-FORM1 
+- Plan de Revisión - PRSGM - ISO - 10012:2003 - FORM2 
+    
+""",
+    
+    
+    'calibration.md': """
+    
+    <form>
+    <div class="form-group">
+        <label for="nameInput">Name:</label>
+        <input type="text" class="form-control" id="nameInput" placeholder="Enter name">
+    </div>
+    <div class="form-group">
+        <label for="addressInput">Address:</label>
+        <input type="text" class="form-control" id="addressInput" placeholder="Enter address">
+    </div>
+    <div class="form-group">
+        <label for="contactInput">Contact:</label>
+        <input type="text" class="form-control" id="contactInput" placeholder="Enter contact number">
+    </div>
+    <div class="form-group">
+        <label for="equipmentInput">Equipment:</label>
+        <input type="text" class="form-control" id="equipmentInput" placeholder="Enter equipment details">
+    </div>
+    <div class="form-group">
+        <label for="softwareInput">Software Version:</label>
+        <input type="text" class="form-control" id="softwareInput" placeholder="Enter software version">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+    
+    # Calibration Processes
+
+This is the Calibration Processes page. Add your content here.
+
+
+
+<button id="openFormButton" style="background-color: red; color: white; padding: 10px 20px; border: none; cursor: pointer;">Open Station Form</button>
+
+<form>
+    <div class="form-group">
+        <label for="nameInput">Name:</label>
+        <input type="text" class="form-control" id="nameInput" placeholder="Enter name">
+    </div>
+    <div class="form-group">
+        <label for="addressInput">Address:</label>
+        <input type="text" class="form-control" id="addressInput" placeholder="Enter address">
+    </div>
+    <div class="form-group">
+        <label for="contactInput">Contact:</label>
+        <input type="text" class="form-control" id="contactInput" placeholder="Enter contact number">
+    </div>
+    <div class="form-group">
+        <label for="equipmentInput">Equipment:</label>
+        <input type="text" class="form-control" id="equipmentInput" placeholder="Enter equipment details">
+    </div>
+    <div class="form-group">
+        <label for="softwareInput">Software Version:</label>
+        <input type="text" class="form-control" id="softwareInput" placeholder="Enter software version">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+
+
+# Calibration Processes
+
+This is the Calibration Processes page. Add your content here.
+
+Here's a blue button to open the form:
+
+<button id="openFormButton" style="background-color: blue; color: white; padding: 10px 20px; border: none; cursor: pointer;">Open Form</button>
+
+<script>
+document.getElementById("openFormButton").onclick = function() {
+    var formContainer = document.getElementById("formContainer");
+    if (formContainer.style.display === "none" || formContainer.style.display === "") {
+        formContainer.style.display = "block";
+    } else {
+        formContainer.style.display = "none";
+    }
+}
+
+function submitForm() {
+    var equipmentName = document.getElementById("equipmentName").value;
+    // Add code to retrieve other form field values here
+
+    // Create a JavaScript object with form data
+    var formData = {
+        equipmentName: equipmentName,
+        // Add other form field names and values here
+    };
+
+    // Send the form data to the Flask server for database insertion
+    fetch('/submit_form', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        // Add code to handle the response from the server (e.g., success message)
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        // Add code to handle errors (e.g., display an error message)
+    });
+}
+</script>
+
+<div id="formContainer" style="display: none;">
+    <form id="equipmentForm">
+        <input type="text" placeholder="Equipment Name" id="equipmentName">
+        <!-- Add other form fields here -->
+        <button type="button" id="submitFormButton" onclick="submitForm()">Submit</button>
+    </form>
+</div>
+
+Here's a blue button:
+<button style="background-color: blue; color: white; padding: 10px 20px; border: none; cursor: pointer;">Click Me</button>
+""",
+
+    'equipment_information_form.md': """
+    
+    ## Form Submissions Data
+
+You can download the form submissions data in JSON format from the link below:
+
+[Download form_submissions.json](form_submissions.json)
+
+
+# Equipment Information Form
+
+This page provides an example of how to create a form for recording equipment information into the Quality Measurement Information System database. You can use the code below as a template to create similar forms for different types of records.
+
+```python
+
+
+""",
+'improve.md':"""
+# User Name Form
+
+
+<form>
+    <div class="form-group">
+        <label for="nameInput">Name:</label>
+        <input type="text" class="form-control" id="nameInput" placeholder="Enter name">
+    </div>
+    <div class="form-group">
+        <label for="addressInput">Address:</label>
+        <input type="text" class="form-control" id="addressInput" placeholder="Enter address">
+    </div>
+    <div class="form-group">
+        <label for="contactInput">Contact:</label>
+        <input type="text" class="form-control" id="contactInput" placeholder="Enter contact number">
+    </div>
+    <div class="form-group">
+        <label for="equipmentInput">Equipment:</label>
+        <input type="text" class="form-control" id="equipmentInput" placeholder="Enter equipment details">
+    </div>
+    <div class="form-group">
+        <label for="softwareInput">Software Version:</label>
+        <input type="text" class="form-control" id="softwareInput" placeholder="Enter software version">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+
+Please enter your name below:
+
+<form action="#" method="post">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name"><br>
+    <input type="submit" value="Submit">
+</form>
+    """
+}
+
+# Write content to .md files in the docs folder
+for filename, content in page_contents.items():
+    with open(f'docs/{filename}', 'w') as page_file:
+        page_file.write(content)
+
+# Write content to index.md in the docs folder
+with open('docs/index.md', 'w') as index_file:
+    index_file.write(index_content)
+
+# Create or overwrite the form.js file with the JavaScript code
+javascript_code = """
+// JavaScript code goes here
+
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("stationForm");
+
+    form.addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        // Get form field values
+        const name = document.getElementById("name").value;
+        const address = document.getElementById("address").value;
+        const contact_info = document.getElementById("contact_info").value;
+        const equipment_type = document.getElementById("equipment_type").value;
+        const software_version = document.getElementById("software_version").value;
+
+        // Create an object with form data
+        const formData = {
+            name,
+            address,
+            contact_info,
+            equipment_type,
+            software_version,
+        };
+
+        // Send form data to the Flask server
+        fetch('/add_station', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                alert("Station record submitted successfully!");
+                // Clear form fields after submission
+                form.reset();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert("An error occurred while submitting the form.");
+            });
+    });
+});
+"""
+
+with open('form.js', 'w') as js_file:
+    js_file.write(javascript_code)
+
+print("JavaScript code has been saved to form.js")
+
+!mkdocs build
+!mkdocs serve
